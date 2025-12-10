@@ -212,3 +212,54 @@ function initParticles() {
     init();
     animate();
 }
+
+    // --- Newsletter Form Handler ---
+    const form = document.getElementById("newsletter-form");
+    const formStatus = document.getElementById("form-status");
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        const data = new FormData(event.target);
+        
+        // Visual Loading State
+        const btn = form.querySelector('button');
+        const originalText = btn.innerText;
+        btn.innerText = "SUMMONING...";
+        btn.disabled = true;
+
+        fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                formStatus.innerHTML = "You have been summoned. Welcome to the Vanguard.";
+                formStatus.className = "form-status success";
+                form.reset();
+                btn.innerText = originalText;
+                btn.disabled = false;
+            } else {
+                response.json().then(data => {
+                    if (Object.hasOwn(data, 'errors')) {
+                        formStatus.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        formStatus.innerHTML = "The ritual failed. Please try again.";
+                    }
+                    formStatus.className = "form-status error";
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                })
+            }
+        }).catch(error => {
+            formStatus.innerHTML = "Connection to the Void lost. Check your internet.";
+            formStatus.className = "form-status error";
+            btn.innerText = originalText;
+            btn.disabled = false;
+        });
+    }
+
+    if (form) {
+        form.addEventListener("submit", handleSubmit);
+    }
