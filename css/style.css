@@ -1,0 +1,874 @@
+/* --- Variables --- */
+:root {
+    --bg-dark: #050505;
+    /* Deep Void */
+    --color-primary: #d4af37;
+    /* Royal Gold */
+    --color-secondary: #ffbf00;
+    /* Amber */
+    --color-text: #ffffff;
+    --color-text-dim: #888888;
+
+    --font-display: 'Outfit', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+
+    --container-width: 1400px;
+    --header-height: 100px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none;
+    /* Custom Cursor */
+}
+
+body {
+    background-color: var(--bg-dark);
+    /* Subtle gold/amber glow */
+    background-image: radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.08), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(255, 191, 0, 0.08), transparent 25%);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    overflow-x: hidden;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- Custom Cursor --- */
+.cursor-dot,
+.cursor-outline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-primary);
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+body.hovering .cursor-outline {
+    width: 60px;
+    height: 60px;
+    background: rgba(240, 240, 240, 0.1);
+    border-color: var(--color-primary);
+}
+
+/* --- Particle Canvas --- */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.6;
+    /* Increased visibility */
+}
+
+/* --- Typography --- */
+h1,
+h2,
+h3 {
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.section-label {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--color-primary), #fff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-outline {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+    color: transparent;
+}
+
+/* --- Components --- */
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.btn {
+    display: inline-flex;
+    overflow: hidden;
+    position: relative;
+    padding: 1.2rem 3rem;
+    border-radius: 4px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-text);
+    z-index: -1;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.btn:hover .btn-fill {
+    transform: translateY(0);
+}
+
+.btn:hover {
+    color: #000;
+}
+
+/* --- Header --- */
+.main-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 2rem 0;
+    mix-blend-mode: difference;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 3rem;
+}
+
+.main-nav a span {
+    display: block;
+    position: relative;
+}
+
+.main-nav a span::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -5px;
+    left: 0;
+    background: var(--color-primary);
+    transition: width 0.3s;
+}
+
+.main-nav a:hover span::after {
+    width: 100%;
+}
+
+/* --- Hero --- */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    /* Particles will show through */
+}
+
+/* Text Layer is now the only layer in Hero */
+.text-layer {
+    flex-direction: column;
+    z-index: 10;
+    text-align: center;
+}
+
+.hero-logo-large {
+    width: 600px;
+    max-width: 90vw;
+    margin-bottom: -120px;
+    /* Pull text up significantly into transparent space */
+    filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.3));
+}
+
+.subtitle {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    max-width: 500px;
+    margin: 0 auto 3rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.scroll-instruction {
+    margin-top: 4rem;
+    /* Spacing from CTA/Subtitle */
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0.7;
+}
+
+.scroll-instruction .line {
+    width: 1px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* --- Game Guide --- */
+.features-section {
+    padding: 15rem 0;
+    background: transparent;
+    position: relative;
+    z-index: 2;
+}
+
+.guide-block {
+    margin-bottom: 20rem;
+    /* Increased spacing */
+    position: relative;
+}
+
+.guide-block:last-child {
+    margin-bottom: 0;
+}
+
+/* Flex layout to put image next to text */
+.guide-content-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    position: relative;
+}
+
+/* Alternating layout */
+.guide-block:nth-child(even) .guide-content-wrapper {
+    flex-direction: row-reverse;
+}
+
+.guide-text-side {
+    flex: 1;
+    z-index: 2;
+}
+
+.feature-image-side {
+    flex: 0.8;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+}
+
+.feature-img {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.15));
+    animation: float-slow 6s ease-in-out infinite;
+}
+
+/* Floating Animation */
+@keyframes float-slow {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.section-title {
+    font-size: 4rem;
+    margin-bottom: 3rem;
+    line-height: 0.9;
+}
+
+.guide-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Stacked text cards */
+    gap: 2rem;
+}
+
+.guide-card {
+    position: relative;
+    padding: 2rem 0;
+    background: transparent;
+    backdrop-filter: none;
+    border: none;
+    overflow: visible;
+    /* 3D tilt styles */
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    will-change: transform;
+}
+
+/* Remove effects */
+.guide-card::before,
+.guide-card::after {
+    display: none;
+}
+
+.guide-card:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.guide-card h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+    transform: translateZ(20px);
+}
+
+.guide-card p {
+    color: var(--color-text-dim);
+    line-height: 1.7;
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 2;
+    border-left: 2px solid var(--color-primary);
+    padding-left: 1.5rem;
+    transform: translateZ(20px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-logo-large {
+        width: 400px;
+    }
+
+    .guide-content-wrapper {
+        flex-direction: column !important;
+        /* Stack context on mobile */
+        gap: 3rem;
+    }
+
+    .feature-image-side {
+        order: -1;
+        /* Image on top */
+        margin-bottom: 2rem;
+    }
+
+    .feature-img {
+        max-width: 80%;
+    }
+}
+
+
+/* --- Community --- */
+.community-section {
+    padding: 15rem 0;
+    text-align: center;
+}
+
+.large-text {
+    font-size: 12vw;
+    line-height: 0.9;
+    margin-bottom: 4rem;
+}
+
+.social-grid {
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.social-item {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.social-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary);
+    transition: width 0.3s;
+}
+
+.social-item:hover::after {
+    width: 100%;
+}
+
+/* --- Footer --- */
+.main-footer {
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0.8;
+}
+
+.footer-logo {
+    height: 30px;
+    width: auto;
+}
+
+/* Smaller logo */
+.footer-row p {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--color-text-dim);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-logo-large {
+        width: 400px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Epic Additions --- */
+
+/* 1. Noise Overlay */
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9000;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+}
+
+/* 2. Glitch Effect */
+.glitch-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.glitch {
+    position: relative;
+    mix-blend-mode: lighten;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-dark);
+    /* Match bg to hide original */
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-1 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -1px 0 #00fff9;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% {
+        clip: rect(30px, 9999px, 10px, 0);
+    }
+
+    5% {
+        clip: rect(70px, 9999px, 90px, 0);
+    }
+
+    10% {
+        clip: rect(10px, 9999px, 50px, 0);
+    }
+
+    15% {
+        clip: rect(80px, 9999px, 20px, 0);
+    }
+
+    20% {
+        clip: rect(40px, 9999px, 60px, 0);
+    }
+
+    25% {
+        clip: rect(20px, 9999px, 80px, 0);
+    }
+
+    30% {
+        clip: rect(90px, 9999px, 10px, 0);
+    }
+
+    35% {
+        clip: rect(60px, 9999px, 30px, 0);
+    }
+
+    40% {
+        clip: rect(50px, 9999px, 70px, 0);
+    }
+
+    45% {
+        clip: rect(10px, 9999px, 40px, 0);
+    }
+
+    50% {
+        clip: rect(80px, 9999px, 90px, 0);
+    }
+
+    55% {
+        clip: rect(30px, 9999px, 20px, 0);
+    }
+
+    100% {
+        clip: rect(60px, 9999px, 50px, 0);
+    }
+}
+
+@keyframes glitch-anim-2 {
+    0% {
+        clip: rect(60px, 9999px, 50px, 0);
+    }
+
+    5% {
+        clip: rect(30px, 9999px, 20px, 0);
+    }
+
+    10% {
+        clip: rect(80px, 9999px, 90px, 0);
+    }
+
+    15% {
+        clip: rect(10px, 9999px, 40px, 0);
+    }
+
+    20% {
+        clip: rect(50px, 9999px, 70px, 0);
+    }
+
+    25% {
+        clip: rect(60px, 9999px, 30px, 0);
+    }
+
+    30% {
+        clip: rect(90px, 9999px, 10px, 0);
+    }
+
+    35% {
+        clip: rect(20px, 9999px, 80px, 0);
+    }
+
+    40% {
+        clip: rect(40px, 9999px, 60px, 0);
+    }
+
+    45% {
+        clip: rect(80px, 9999px, 20px, 0);
+    }
+
+    50% {
+        clip: rect(10px, 9999px, 50px, 0);
+    }
+
+    55% {
+        clip: rect(70px, 9999px, 90px, 0);
+    }
+
+    100% {
+        clip: rect(30px, 9999px, 10px, 0);
+    }
+}
+
+/* 3. 3D Tilt Effect */
+.guide-card {
+    /* Existing styles override or extend */
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    will-change: transform;
+}
+
+.guide-card h3,
+.guide-card p {
+    /* Pop out */
+    transform: translateZ(20px);
+}
+
+/* --- Manifesto (The Oath) --- */
+.manifesto-section {
+    padding: 10rem 0;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.manifesto-intro {
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+    color: var(--color-primary);
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.manifesto-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    margin-bottom: 3rem;
+    font-family: var(--font-display);
+}
+
+.manifesto-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--color-text-dim);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.text-gold {
+    color: var(--color-primary);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+/* --- Roadmap (Quest Log) --- */
+.roadmap-section {
+    padding: 10rem 0;
+    position: relative;
+    z-index: 2;
+}
+
+.centered {
+    text-align: center;
+}
+
+.timeline {
+    position: relative;
+    margin-top: 5rem;
+    padding-left: 2rem;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 4rem;
+    padding-left: 3rem;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -9px;
+    /* center on border */
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    background: var(--bg-dark);
+    border: 2px solid var(--color-text-dim);
+    border-radius: 50%;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.timeline-item.completed .timeline-marker {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.timeline-item.active .timeline-marker {
+    border-color: var(--color-primary);
+    background: var(--bg-dark);
+}
+
+.pulse {
+    animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+    0% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+    }
+}
+
+.timeline-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    font-family: var(--font-display);
+}
+
+.timeline-content p {
+    color: var(--color-text-dim);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    border: 1px solid var(--color-text-dim);
+    color: var(--color-text-dim);
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.status-badge.done {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.status-badge.active {
+    border-color: #fff;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.timeline-item.locked {
+    opacity: 0.5;
+}
+
+/* --- Newsletter (Vanguard) --- */
+.newsletter-section {
+    padding: 8rem 0;
+    position: relative;
+    z-index: 2;
+}
+
+.small-margin {
+    margin-bottom: 1rem;
+}
+
+.section-desc {
+    color: var(--color-text-dim);
+    margin-bottom: 3rem;
+    font-size: 1.2rem;
+}
+
+.rune-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.input-group {
+    display: flex;
+    gap: 1rem;
+}
+
+.rune-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 1.5rem;
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.rune-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .input-group {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .timeline {
+        padding-left: 1rem;
+    }
+}
+
+/* Distinct Font for Newsletter Header (Matches Manifesto Intro) */
+.vanguard-header {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    /* Slightly larger than intro but same style */
+    letter-spacing: 0.3em;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}

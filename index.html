@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eatherbound | The Adventure Awaits</title>
+    <meta name="description"
+        content="Embark on a mythical journey in Eatherbound. Explore mysterious lands, battle ancient foes, and uncover hidden secrets.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="loading">
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Background Canvas for Particles (Global) -->
+    <canvas id="particle-canvas"></canvas>
+    <div class="noise-overlay"></div>
+
+    <header class="main-header">
+        <div class="container header-content">
+            <!-- Logo Removed as requested -->
+            <nav class="main-nav" style="margin: 0 auto;"> <!-- Centered Nav -->
+                <ul>
+                    <li><a href="#hero" class="magnetic"><span>Home</span></a></li>
+                    <li><a href="#features" class="magnetic"><span>Game Guide</span></a></li>
+                    <li><a href="#community" class="magnetic"><span>Community</span></a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle magnetic" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <!-- Hero Section (Logo Only) -->
+            <section id="hero" class="hero-section">
+                <!-- No Images, just particles from body background -->
+                <div class="container hero-content text-layer">
+                    <img src="assets/images/logo.png" alt="Eatherbound" class="hero-logo-large">
+                    <!-- Subtitle -->
+                    <p class="subtitle">A souls-like ARPG where every pixel holds a secret.</p>
+                    <div class="cta-group">
+                        <a href="#community" class="btn btn-primary magnetic">
+                            <span>Join the Beta</span>
+                            <div class="btn-fill"></div>
+                        </a>
+                    </div>
+
+                    <div class="scroll-instruction">
+                        <span>Scroll to Explore</span>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Manifesto Section -->
+            <section class="manifesto-section fade-in-up">
+                <div class="container small-container">
+                    <p class="manifesto-intro">THE OATH</p>
+                    <h2 class="manifesto-title">NO MICROTRANSACTIONS.<br>JUST SKILL.</h2>
+                    <p class="manifesto-text">
+                        We grew up in an era where legendary armor was earned, not bought.
+                        Eatherbound returns to those roots. No pay-to-win mechanics. No time-gated energy.
+                        Just you, your party, and the Abyss. If you see someone wearing the <span
+                            class="text-gold">Abyssal Plate</span>,
+                        know that they bled for it.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Game Guide Sections -->
+            <section id="features" class="features-section">
+                <div class="container">
+
+                    <!-- Section A: The World Loop -->
+                    <div class="guide-block fade-in-up">
+                        <div class="guide-content-wrapper">
+                            <div class="guide-text-side">
+                                <div class="section-label">01 // THE WORLD</div>
+                                <h2 class="section-title">THE SANCTUARY & <br> <span class="text-outline">THE
+                                        ABYSS</span></h2>
+                                <div class="guide-grid">
+                                    <div class="guide-card">
+                                        <h3>The Hub City</h3>
+                                        <p>Between runs, return to the Sanctuary. A sprawling pixel-art metropolis where
+                                            players
+                                            gather. Accept quests from the guild, trade with merchants, and form parties
+                                            before
+                                            venturing out.</p>
+                                    </div>
+                                    <div class="guide-card">
+                                        <h3>Procedural Dungeons</h3>
+                                        <p>Step through the Gateways to enter the Abyss. Each dungeon is procedurally
+                                            generated
+                                            based on your party size. Expect 20-30 minute intense runs ending in epic
+                                            boss
+                                            battles.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="feature-image-side">
+                                <img src="assets/images/dark_portal.png" alt="Dark Portal" class="feature-img">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section B: Combat -->
+                    <div class="guide-block fade-in-up">
+                        <div class="guide-content-wrapper">
+                            <div class="guide-text-side">
+                                <div class="section-label">02 // COMBAT ARTS</div>
+                                <h2 class="section-title">SOULS-LIKE <br> <span class="text-outline">TACTICS</span></h2>
+                                <div class="guide-grid">
+                                    <div class="guide-card full-width">
+                                        <h3>Tactical & Visceral</h3>
+                                        <p>Combat requires precision. Master the art of the <strong>Parry</strong>,
+                                            manage your
+                                            stamina for <strong>Dodges</strong>, and unleash active abilities unique to
+                                            your
+                                            class. It's not just about button mashing; it's about timing and strategy.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="feature-image-side">
+                                <img src="assets/images/combat_weapons.png" alt="Combat Weapons" class="feature-img">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section C: Classes & Co-op -->
+                    <div class="guide-block fade-in-up">
+                        <div class="guide-content-wrapper">
+                            <div class="guide-text-side">
+                                <div class="section-label">03 // THE VANGUARD</div>
+                                <h2 class="section-title">ASSEMBLE YOUR <br> <span class="text-outline">PARTY</span>
+                                </h2>
+                                <div class="guide-grid">
+                                    <div class="guide-card">
+                                        <h3>Co-op Multiplayer</h3>
+                                        <p>Eatherbound is built for teamwork. Tank, Healer, DPS—synergize with friends
+                                            to
+                                            conquer high-level raids. The difficulty scales with your squad.</p>
+                                    </div>
+                                    <div class="guide-card">
+                                        <h3>Solo Command</h3>
+                                        <p>No party? No problem. Create and customize your own AI-controlled team.
+                                            Design their
+                                            build, set their tactics, and lead them into the darkness.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="feature-image-side">
+                                <img src="assets/images/knight_character.png" alt="Knight Character"
+                                    class="feature-img">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section D: Progression -->
+                    <div class="guide-block fade-in-up">
+                        <div class="guide-content-wrapper">
+                            <div class="guide-text-side">
+                                <div class="section-label">04 // SPOILS OF WAR</div>
+                                <h2 class="section-title">LOOT & <br> <span class="text-outline">LEGEND</span></h2>
+                                <div class="guide-grid">
+                                    <div class="guide-card full-width">
+                                        <h3>The Economy of Power</h3>
+                                        <p>Hunt for rare armor drops and legendary weapons. The "Spoils of War" system
+                                            ensures
+                                            that the risk is worth the reward. Buy, sell, and craft to build the
+                                            ultimate
+                                            warrior.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="feature-image-side">
+                                <img src="assets/images/ancient_relic.png" alt="Ancient Relic" class="feature-img">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Roadmap (Quest Log) -->
+            <section class="roadmap-section fade-in-up">
+                <div class="container small-container">
+                    <div class="section-label centered">DEV DIARY</div>
+                    <h2 class="section-title centered">QUEST <span class="text-outline">LOG</span></h2>
+
+                    <div class="timeline">
+                        <!-- Phase 1 (Current) -->
+                        <div class="timeline-item active">
+                            <div class="timeline-marker pulse"></div>
+                            <div class="timeline-content">
+                                <h3>Phase 1: The Foundation</h3>
+                                <p>Core combat mechanics, multi-class system, and the first procedural dungeon
+                                    generation logic.</p>
+                                <span class="status-badge active">IN PROGRESS</span>
+                            </div>
+                        </div>
+
+                        <!-- Phase 2 -->
+                        <div class="timeline-item locked">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h3>Phase 2: Alpha Testing</h3>
+                                <p>Closed alpha for "Vanguard" supporters. Stress testing co-op networking and boss AI
+                                    behavior.</p>
+                                <span class="status-badge locked">LOCKED</span>
+                            </div>
+                        </div>
+
+                        <!-- Phase 3 -->
+                        <div class="timeline-item locked">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h3>Phase 3: The Sanctuary</h3>
+                                <p>Hub city implementation, player trading system, and crafting professions.</p>
+                                <span class="status-badge locked">LOCKED</span>
+                            </div>
+                        </div>
+
+                        <!-- Phase 4 -->
+                        <div class="timeline-item locked">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h3>Phase 4: Early Access</h3>
+                                <p>Steam public release. 3 fully explorable biomes, 10-player raids, and seasonal
+                                    leaderboards.</p>
+                                <span class="status-badge locked">LOCKED</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Newsletter (Vanguard) -->
+            <section class="newsletter-section">
+                <div class="container small-container text-center">
+                    <h2 class="small-margin vanguard-header">JOIN THE VANGUARD</h2>
+                    <p class="section-desc">Be the first to enter the Abyss. Sign up for exclusive alpha access updates.
+                    </p>
+
+                    <form class="rune-form">
+                        <div class="input-group">
+                            <input type="email" placeholder="Enter your email..." class="rune-input" required>
+                            <button type="submit" class="btn btn-primary">SUMMON ME</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Community CTA -->
+            <section id="community" class="community-section">
+                <div class="container">
+                    <div class="community-content">
+                        <h2 class="large-text">FIND YOUR<br>ALLIES</h2>
+                        <div class="social-grid">
+                            <a href="#" class="social-item magnetic">DISCORD</a>
+                            <a href="#" class="social-item magnetic">TWITTER</a>
+                            <a href="#" class="social-item magnetic">STEAM</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="main-footer">
+                <div class="container">
+                    <div class="footer-row">
+                        <img src="assets/images/logo.png" alt="Logo" class="footer-logo">
+                        <p>&copy; 2025 Eatherbound.</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <!-- Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
