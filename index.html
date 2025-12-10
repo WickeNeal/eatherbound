@@ -260,11 +260,13 @@
                     <p class="section-desc">Be the first to enter the Abyss. Sign up for exclusive alpha access updates.
                     </p>
 
-                    <form class="rune-form">
+                    <form class="rune-form" action="https://formspree.io/f/xblnzwrl" method="POST" id="newsletter-form">
                         <div class="input-group">
-                            <input type="email" placeholder="Enter your email..." class="rune-input" required>
+                            <input type="email" name="email" placeholder="Enter your email..." class="rune-input"
+                                required>
                             <button type="submit" class="btn btn-primary">SUMMON ME</button>
                         </div>
+                        <p id="form-status" class="form-status"></p>
                     </form>
                 </div>
             </section>
